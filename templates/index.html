@@ -1,0 +1,1182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - AZARYOUH RIF CARS</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+
+    <style>
+/* General body styling */
+body {
+    text-decoration: none;
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: url('../static/background.jpg') no-repeat center bottom/cover;
+    color: #333;
+}
+
+/* Adjust the hero section */
+.hero {
+    height: 60vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    background-color: transparent; /* Remove the black background */
+}
+
+.gif-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+/* Ensure the GIFs fill their container while keeping aspect ratio */
+.gif-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* Ensure the image scales properly without distortion */
+}
+
+/* Hide the small GIF by default */
+.small-gif {
+    display: none;
+}
+
+/* Show the large GIF by default */
+.large-gif {
+    display: block;
+}
+
+/* For small devices, hide the large GIF and show the small GIF */
+@media (max-width: 768px) {
+    .large-gif {
+        display: none;
+    }
+    .small-gif {
+        display: block;
+        object-fit: contain; /* Ensure the small GIF fits the container without distortion */
+    }
+}
+
+
+/* Deals Section */
+.deals {
+    background-color: #f8f9fa;
+    padding: 60px 0;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.deals-heading {
+    font-size: 2.5rem;
+    color: #B31B1B;
+    text-align: center;
+    margin-bottom: 40px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    position: relative;
+}
+
+.deal-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.deal {
+    margin: 20px;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #fff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    display: inline-block;
+    width: calc(33.333% - 40px);
+    text-align: center;
+    transition: transform 0.3s, box-shadow 0.3s;
+    text-decoration: none;
+}
+
+.deal:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    text-decoration: none;
+}
+
+.deal h3 {
+    font-size: 1.8rem;
+    color: #333;
+    margin: 15px 0;
+    font-weight: 600;
+}
+
+.deal p {
+    color: #666;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.deal-image {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    margin-bottom: 15px;
+}
+
+.p3-image {
+    width: 310px;
+    height: 150px;
+    object-fit: fill;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    margin-bottom: 15px;
+}
+
+@media (max-width: 768px) {
+    .deal {
+        width: calc(48% - 20px);
+        margin: 10px auto;
+    }
+
+    .deal.monthly-plan {
+        width: calc(70% - 20px);
+        margin: 15px auto;
+        padding: 10px;
+    }
+
+    .p3-image {
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+        margin-bottom: 10px;
+        border-radius: 8px;
+    }
+}
+
+@media (max-width: 480px) {
+    .deal {
+        width: 100%;
+    }
+
+    .deal.monthly-plan {
+        width: calc(85% - 20px);
+        margin: 15px auto;
+        padding: 10px;
+    }
+
+    .p3-image {
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+        margin-bottom: 10px;
+        border-radius: 8px;
+    }
+}
+
+/* Scroll to Top Button - Circular and positioned at bottom left */
+.scroll-to-top {
+    position: fixed;
+    bottom: 40px;
+    left: 40px;
+    background-color: #333;
+    color: #FFF;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%; /* Make it a circle */
+    font-size: 24px;
+    text-decoration: none;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    z-index: 100;
+    border: none;
+    transition: background-color 0.3s, transform 0.3s;
+    cursor: pointer;
+    display: none; /* Hide by default */
+    opacity: 0.9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.scroll-to-top:hover {
+    background-color: #555;
+    transform: translateY(-2px);
+}
+
+
+
+/* Social Buttons - Make smaller on small devices */
+.social-buttons {
+    position: fixed;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    z-index: 1000;
+}
+
+.social-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    color: #fff;
+    margin: 5px 0;
+    transition: background-color 0.3s, transform 0.3s;
+    text-decoration: none;
+}
+
+.social-button i {
+    font-size: 24px;
+}
+
+@media (max-width: 768px) {
+    .social-button {
+        width: 40px;
+        height: 40px;
+        margin: 3px 0;
+    }
+
+    .social-button i {
+        font-size: 20px;
+    }
+}
+
+.whatsapp-button {
+    background-color: #25d366;
+}
+
+.whatsapp-button:hover {
+    background-color: #1da851;
+    transform: translateX(-5px);
+}
+
+.instagram-button {
+    background-color: #e1306c;
+}
+
+.instagram-button:hover {
+    background-color: #c62357;
+    transform: translateX(-5px);
+}
+
+.facebook-button {
+    background-color: #3b5998;
+}
+
+.facebook-button:hover {
+    background-color: #2d4373;
+    transform: translateX(-5px);
+}
+
+/* Service Cards Section */
+.services {
+    background-color: #fff;
+    padding: 50px 0;
+    text-align: center;
+}
+
+.services h2 {
+    font-size: 2.5rem;
+    margin-bottom: 50px;
+    color: #B31B1B;
+}
+
+.service-card {
+    background: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    margin: 15px;
+    flex: 1;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-decoration: none;
+}
+
+.service-card a:hover {
+    text-decoration: none;
+}
+
+.service-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    text-decoration: none;
+}
+
+.service-card i {
+    font-size: 60px;
+    color: #B31B1B;
+    margin-bottom: 25px;
+}
+
+.service-card h3 {
+    font-size: 1.8em;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.service-card p {
+    color: #555;
+    font-size: 1.1em;
+}
+
+.service-card a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* CLICKNGO Section */
+.clickngo-section {
+    padding: 60px 20px;
+    background-color: #f8f9fa;
+}
+
+.clickngo-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+    flex-wrap: wrap;
+}
+
+.clickngo-image-container {
+    flex: 1;
+    max-width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.clickngo-image {
+    width: 100%;
+    max-width: 400px; /* Control the image size */
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.clickngo-text-container {
+    flex: 1;
+    max-width: 50%;
+    padding: 20px;
+}
+
+.clickngo-title {
+    font-size: 2rem;
+    color: #B31B1B; /* Adjust the color as needed */
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.clickngo-step {
+    margin-bottom: 30px;
+}
+
+.clickngo-step h3 {
+    font-size: 1.6rem;
+    color: #333;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.clickngo-step p {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #555;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .clickngo-container {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .clickngo-image-container,
+    .clickngo-text-container {
+        max-width: 100%;
+    }
+
+    .clickngo-image {
+        max-width: 100%;
+    }
+}
+
+/* Clients Testimonials Section */
+.testimonials-heading {
+    font-size: 2.5rem;
+    color: #B31B1B;
+    text-align: center;
+    margin: 50px 0 30px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    position: relative;
+}
+
+.testimonials-heading::after {
+    content: "";
+    width: 80px;
+    height: 4px;
+    background-color: #B31B1B;
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 2px;
+}
+
+/* FAQ Styles */
+.faq-section {
+    max-width: 900px;
+    margin: 50px auto;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+.faq-section h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 2rem;
+    color: #333;
+}
+
+.card-header button {
+    text-align: left;
+    width: 100%;
+    padding: 15px;
+    font-size: 1.2rem;
+    color: #333;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 500;
+    font-family: 'Roboto', sans-serif;
+}
+
+.card-header button::after {
+    content: '\f107';
+    font-family: 'FontAwesome';
+    font-size: 1.2rem;
+    transition: transform 0.3s ease;
+}
+
+.card-header button.collapsed::after {
+    transform: rotate(0deg);
+}
+
+.card-header button:not(.collapsed)::after {
+    transform: rotate(180deg);
+}
+
+.card-header button:focus {
+    box-shadow: none;
+}
+
+.card-header.active,
+.card-header button:focus {
+    background-color: #333;
+    color: #fff;
+}
+
+.card-header button:not(.collapsed) {
+    background-color: #333;
+    color: #fff;
+}
+
+.card-body {
+    font-size: 1rem;
+    color: #666;
+    background-color: #fff;
+    padding: 20px;
+    border-top: 1px solid #ddd;
+}
+
+.card {
+    border: none;
+    margin-bottom: 10px;
+}
+
+.card-header.active {
+    border: none;
+    background-color: #333;
+    color: #fff;
+}
+
+.card-header button:hover {
+    background-color: #333;
+    color: #fff;
+    text-decoration: none;
+}
+
+.why-choose-us {
+    background-color: #083b7b; /* Background color similar to the image */
+    color: #ffffff; /* Text color */
+    padding: 40px 20px; /* Padding for the section */
+    border-radius: 20px; /* Rounded corners */
+    margin: 40px auto; /* Margin to center the section with some space above and below */
+    max-width: 1000px; /* Maximum width for the section */
+}
+
+.why-choose-us h2 {
+    color: #4aa5cf; /* Blue color for headings */
+    font-size: 1.8rem; /* Heading font size */
+    margin-bottom: 20px; /* Space below the heading */
+    font-weight: bold; /* Bold text for the heading */
+}
+
+.why-choose-us p {
+    font-size: 1rem; /* Font size for the paragraph text */
+    line-height: 1.6; /* Line height for better readability */
+    margin-bottom: 20px; /* Space below each paragraph */
+}
+
+.why-choose-us strong {
+    color: #ffffff; /* White color for emphasized text */
+}
+
+.azaryouh-section {
+    background-color: #f8f9fa; /* Light background similar to the image */
+    color: #333; /* Text color */
+    padding: 50px 20px; /* Padding for the section */
+    border-radius: 20px; /* Rounded corners */
+    margin: 40px auto; /* Margin to center the section with some space above and below */
+    max-width: 1000px; /* Maximum width for the section */
+}
+
+.azaryouh-section h2 {
+    font-size: 2rem; /* Heading font size */
+    margin-bottom: 20px; /* Space below the heading */
+    font-weight: bold; /* Bold text for the heading */
+    color: #000; /* Heading color */
+}
+
+.azaryouh-section p {
+    font-size: 1rem; /* Font size for the paragraph text */
+    line-height: 1.6; /* Line height for better readability */
+    margin-bottom: 20px; /* Space below each paragraph */
+}
+
+.azaryouh-section strong {
+    color: #000; /* Bold text color */
+}
+
+/* Map Card Styling */
+.map-card {
+    width: 100%;
+    max-width: 1000px; /* Set a maximum width similar to the provided image */
+    margin: 20px auto; /* Center the card with auto margins */
+    background-color: white;
+    border: 1px solid #ddd;
+    padding: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Adding shadow for a nice effect */
+    border-radius: 8px; /* Rounded corners for better aesthetics */
+    overflow: hidden; /* Ensure the map doesn't overflow the card */
+}
+
+.map-card iframe {
+    width: 100%;
+    height: 450px; /* Set the height of the map similar to the example */
+    border: none;
+    border-radius: 8px; /* Match the map container's rounded corners */
+}
+
+/* Cars Section Style */
+.random-cars-section {
+    padding: 50px 0;
+    background-color: #f8f9fa;
+    text-align: center;
+}
+
+.random-cars-section h2 {
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+    color: #333;
+}
+
+.car-card {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    text-align: center;
+    transition: transform 0.3s ease;
+    margin-bottom: 20px;
+    height: 100%; /* Ensure all cards are the same height */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.car-card:hover {
+    transform: scale(1.05);
+}
+
+.car-card img {
+    width: 100%;
+    height: auto;
+    max-height: 200px;
+    object-fit: cover;
+}
+
+.car-card-content {
+    padding: 20px;
+    flex-grow: 1; /* Ensure the content stretches */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.car-card-content h3 {
+    margin-top: 0;
+    font-size: 1.5rem;
+    color: #333;
+}
+
+.car-card-content .description {
+    color: #777;
+    margin: 10px 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* Show only 3 lines */
+    -webkit-box-orient: vertical;
+    height: auto; /* Adjust this value based on the desired number of lines */
+    max-height: 4.5em; /* Adjust this for 3 lines */
+}
+
+.car-card-content .price {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #333;
+    margin: 10px 0;
+}
+
+.book-now {
+    text-decoration: none;
+    color: #fff;
+    background-color: #B31B1B; /* Original color */
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.book-now:hover {
+    background-color: #333;
+    color: #fff; /* Ensures text stays white on hover */
+    text-decoration: none; /* Remove underline on hover */
+}
+
+/* Button Style */
+.see-all-container {
+    margin-top: 30px;
+}
+
+.see-all-button {
+    background-color: #800080; /* Purple color as in the screenshot */
+    color: #fff;
+    padding: 10px 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 50px;
+    text-decoration: none;
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+    display: inline-block;
+}
+
+.see-all-button:hover {
+    background-color: #87CEEB; /* Sky blue color on hover */
+    color: #fff; /* Ensure text turns white on hover */
+    transform: scale(1.05);
+    text-decoration: none; /* Remove underline */
+}
+
+
+/* Smaller screens */
+@media (max-width: 768px) {
+    .car-card img {
+        max-height: 150px; /* Smaller image for small devices */
+    }
+    .car-card h3 {
+        font-size: 1.2rem; /* Smaller text for small devices */
+    }
+    .car-card .price {
+        font-size: 1rem; /* Smaller price text */
+    }
+}
+
+/* Larger screens */
+@media (min-width: 768px) {
+    .car-card img {
+        max-height: 200px; /* Larger image for larger devices */
+    }
+    .car-card h3 {
+        font-size: 1.5rem; /* Larger text for larger devices */
+    }
+    .car-card .price {
+        font-size: 1.2rem; /* Larger price text */
+    }
+}
+
+
+    </style>
+</head>
+
+<body>
+    {% include 'navbar.html' %}
+
+<!-- Hero Section -->
+<div class="hero">
+    <div class="gif-container">
+        <img src="../static/home/poster/gif.gif" alt="Hero GIF" class="gif-image large-gif">
+        <img src="../static/home/poster/gif2.gif" alt="Hero GIF" class="gif-image small-gif">
+    </div>
+</div>
+
+<!-- Random Cars Section -->
+<div class="random-cars-section">
+    <h2>Featured Cars</h2>
+    <div class="container">
+        <div class="row">
+            {% for car in cars %}
+            <div class="col-6 col-md-3">
+                <div class="car-card">
+                    {% if car.images and car.images|length > 0 %}
+                    <img src="{{ url_for('static', filename='uploads/' ~ car.images[0]) }}" alt="{{ car.make }} {{ car.model }}" class="car-image">
+                    {% else %}
+                    <img src="{{ url_for('static', filename='uploads/default-car.jpg') }}" alt="Default Car Image" class="car-image">
+                    {% endif %}
+                    <div class="car-card-content">
+                        <h3>{{ car.make }} {{ car.model }}</h3>
+                        <p class="description">{{ car.description }}</p>
+                        <p class="price">{{ car.price }} DH / day</p>
+                        <a href="{{ url_for('car_details', car_id=car._id) }}" class="book-now">BOOK NOW</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="see-all-container">
+        <a href="{{ url_for('cars') }}" class="see-all-button">SEE ALL ➔</a>
+    </div>
+</div>
+
+    <!-- Services Section -->
+    <div class="services">
+        <h2>Our Services</h2>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="service-card">
+                        <a href="{{ url_for('service') }}#airport-pickup">
+                            <i class="fas fa-plane"></i>
+                            <h3>Airport Pickup & Drop-Off</h3>
+                            <p>Reliable and convenient airport services available at all major Moroccan airports.</p>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="service-card">
+                        <a href="{{ url_for('service') }}#diverse-fleet">
+                            <i class="fas fa-car"></i>
+                            <h3>Diverse Fleet of Vehicles</h3>
+                            <p>Choose from our wide selection of meticulously maintained vehicles.</p>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="service-card">
+                        <a href="{{ url_for('service') }}#customer-support">
+                            <i class="fas fa-headset"></i>
+                            <h3>24/7 Customer Support</h3>
+                            <p>Our customer support team is available around the clock to assist you.</p>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="service-card">
+                        <a href="{{ url_for('service') }}#premium-quality">
+                            <i class="fas fa-rocket"></i>
+                            <h3>Premium Quality</h3>
+                            <p>Experience the best with our meticulously maintained vehicles.</p>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="service-card">
+                        <a href="{{ url_for('service') }}#affordable-rates">
+                            <i class="fas fa-credit-card"></i>
+                            <h3>Affordable Rates</h3>
+                            <p>Enjoy competitive rates and flexible offers.</p>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="service-card">
+                        <a href="{{ url_for('service') }}#trust-transparency">
+                            <i class="fas fa-inbox"></i>
+                            <h3>Trust & Transparency</h3>
+                            <p>Benefit from clear pricing, full insurance coverage, and transparent conditions.</p>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--GOOGLE MAP-->
+
+    <h2 class="testimonials-heading">Clients Testimonials</h2>
+    <script src="https://static.elfsight.com/platform/platform.js" data-use-service-core defer></script>
+    <div class="elfsight-app-a7cfbe91-b183-447f-90a8-ca18b08407fd" data-elfsight-app-lazy></div>
+
+    <!-- how Section -->
+    <div class="clickngo-section">
+        <div class="clickngo-container">
+            <div class="clickngo-image-container">
+                <img src="../static/home/BOOK/p1.jpeg" alt="Clickngo Image" class="clickngo-image">
+            </div>
+            <div class="clickngo-text-container">
+                <h2 class="clickngo-title">Find Your Ideal Car in 3 Steps</h2>
+                <div class="clickngo-step">
+                    <h3>Step 1: Search</h3>
+                    <p>Explore our wide range of vehicles to find the perfect match for your needs. Whether you're looking for a compact car for city driving or a spacious SUV for your adventures, we have something for everyone.</p>
+                </div>
+                <div class="clickngo-step">
+                    <h3>Step 2: Reserve</h3>
+                    <p>Once you've found the right car, reserve it easily by calling us, or through WhatsApp or Instagram. Our team is ready to assist you and confirm your booking quickly and efficiently.</p>
+                </div>
+                <div class="clickngo-step">
+                    <h3>Step 3: Pick Up or Delivery</h3>
+                    <p>Choose to either pick up your car at our location in Taza or have it delivered to your desired location. We’ll ensure everything is ready so you can start your journey with ease and convenience.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    
+
+    <!-- Rental Deals Section -->
+    <div class="deals" id="deals">
+        <h2 class="deals-heading">Rental Deals</h2>
+        <div class="deal-container">
+            <div class="deal">
+                <img src="../static/home/rental/p1.jpg" alt="Summer Special" class="deal-image">
+                <h3>Summer Special</h3>
+                <p>Get 20% off on all rentals for the summer season!</p>
+            </div>
+            <div class="deal">
+                <img src="../static/home/rental/p2.jpg" alt="Weekend Getaway" class="deal-image">
+                <h3>Weekend Getaway</h3>
+                <p>Enjoy a flat 15% discount on weekend car rentals.</p>
+            </div>
+            <div class="deal monthly-plan">
+                <img src="../static/home/rental/p3.jpg" alt="Monthly Plan" class="deal-image p3-image">
+                <h3>Monthly Plan</h3>
+                <p>Special rates for long-term rentals, available now.</p>
+            </div>
+
+        </div>
+    </div>
+
+<!-- Why Choose Us Section -->
+<div class="why-choose-us">
+    <div class="container">
+        <h2>Why choose AZARYOUH RIF CAR in Taza and Morocco?</h2>
+        <p>
+            At <strong>AZARYOUH RIF CAR</strong>, we pride ourselves on offering a diverse range of vehicles to meet the unique needs of our customers in Morocco. Whether you're planning a special event, exploring the beautiful region, or just need a reliable vehicle for your daily commute, we have the perfect car for you. Our fleet is well-maintained and ready to provide you with a smooth and enjoyable driving experience.
+        </p>
+        <h2>Book earlier and enjoy more</h2>
+        <p>
+            <strong>AZARYOUH RIF CAR</strong> is committed to serving the community of Taza with exceptional car rental services. Our office operates full-time from Monday to Saturday, 7:30 a.m. to 10:00 p.m., and on Sundays from 8:30 a.m. to 7:00 p.m. We also provide 24/7 phone support and customer care to ensure you have the best experience possible. From picking you up at your hotel to delivering the car wherever you need, we make your journey convenient and stress-free.
+        </p>
+    </div>
+</div>
+
+
+<!-- AZARYOUH RIF CAR Section -->
+<div class="azaryouh-section">
+    <div class="container">
+        <h2>Direct booking with AZARYOUH RIF CAR is possible</h2>
+        <p>
+            For your convenience, booking a car with <strong>AZARYOUH RIF CAR</strong> is easy through WhatsApp, Instagram, or by telephone. Our team in Taza is ready to assist you with any inquiries or bookings you may have. Simply contact us, and we’ll take care of the rest.
+        </p>
+        
+        <h2>Rent reasonably priced vehicles in Taza</h2>
+        <p>
+            Whether you need a car rental for a special occasion or just to get around Taza, <strong>AZARYOUH RIF CAR</strong> offers a variety of vehicles at competitive prices. Our fleet is designed to meet the needs of every customer, whether you’re looking for a compact car or something more luxurious. You can book your vehicle online or through our social media channels.
+        </p>
+        
+        <h2>Tailored to your needs</h2>
+        <p>
+            At <strong>AZARYOUH RIF CAR</strong>, we understand that plans can change. That’s why we offer flexible booking options, allowing you to manage your reservations online, via WhatsApp, or through Instagram. Whether you need to modify or cancel your booking, our customer service team is here to help, ensuring a hassle-free experience.
+        </p>
+        
+        <h2>The leading car rental company in Taza</h2>
+        <p>
+            <strong>AZARYOUH RIF CAR</strong> is proud to be the top-rated car rental service in Taza. Our customers consistently praise our excellent service, wide selection of vehicles, and competitive prices. Whether you’re traveling alone, with another adult, or in a group, our friendly team is here to meet your needs.
+        </p>
+        
+        <h2>Make the most out of your trip</h2>
+        <p>
+            Enjoy everything Taza has to offer by renting a car from <strong>AZARYOUH RIF CAR</strong>. Our services are designed to make your trip as convenient and enjoyable as possible. With our affordable prices and excellent customer service, we make sure that your experience is memorable. Book your vehicle today through WhatsApp, Instagram, or by calling us directly.
+        </p>
+    </div>
+</div>
+
+
+    <!-- Questions/Answers Section -->
+    <div class="faq-section">
+        <h2>Questions / Answers</h2>
+        <div id="faq" class="accordion">
+            <div class="card">
+                <div class="card-header" id="headingOne">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne"
+                            aria-expanded="true" aria-controls="collapseOne">
+                            1. What services are included in your rates?
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#faq">
+                    <div class="card-body">
+                        Our rates include: vehicle rental, vehicle maintenance and lubricants, unlimited mileage from 3
+                        days of rental, civil liability, collision with deductible, theft protection with deductible,
+                        local taxes, breakdown assistance 24/7, pick-up and drop-off, and 20% VAT airport fee.
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header" id="headingTwo">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo"
+                            aria-expanded="false" aria-controls="collapseTwo">
+                            2. What documents are required to rent a car?
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#faq">
+                    <div class="card-body">
+                        We require the following documents from our customers to cover our legal obligations: Driver’s
+                        license, passport (for MRE and foreigners), residence permit, or a valid ID card. A copy of these
+                        documents will be made and archived by us once we have our first meeting.
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header" id="headingThree">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree"
+                            aria-expanded="false" aria-controls="collapseThree">
+                            3. How the payment would be made?
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#faq">
+                    <div class="card-body">
+                        Payment can be made either by credit card or cash. This can be made either at the time of booking
+                        online or when you come to pick up the vehicle. Our main goal is to get you on your way quickly
+                        and easily.
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header" id="headingFour">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseFour"
+                            aria-expanded="false" aria-controls="collapseFour">
+                            4. Do I have to pay a deposit?
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#faq">
+                    <div class="card-body">
+                        Yes, sometimes a deposit is required when booking the vehicle. The deposit, often referred to as
+                        a security deposit, represents a bank pre-authorization that allows the rental agency to debit
+                        your account with the amount needed to cover problems not covered by insurance and due to your
+                        liability. If you do not see the option “security deposit” when booking, it means that it is not
+                        necessary for the car you have chosen.
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header" id="headingFive">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseFive"
+                            aria-expanded="false" aria-controls="collapseFive">
+                            5. Why choose us to rent your car?
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#faq">
+                    <div class="card-body">
+                        Choosing AZARYOUH RIF CAR will get you to enjoy the beauty of Morocco. First, you will get a
+                        brand-new vehicle 100% guaranteed rental, ensuring a smooth and hassle-free ride. When it comes
+                        to value for money, you won’t find a better deal anywhere else. And to keep you smiling, we’ll
+                        deliver the car to the location of your choice, without any surprise along the way.
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header" id="headingSix">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseSix"
+                            aria-expanded="false" aria-controls="collapseSix">
+                            6. Can anyone else drive the car?
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapseSix" class="collapse" aria-labelledby="headingSix" data-parent="#faq">
+                    <div class="card-body">
+                        Only the driver or second driver identified on the rental contract has the right to drive the
+                        vehicle. Any other driver must be notified at the time of the contract conclusion, and they must
+                        be of legal driving age (21 years) and have a valid driver’s license of at least 2 years. Their
+                        presence at the contract conclusion is obligatory.
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header" id="headingSeven">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseSeven"
+                            aria-expanded="false" aria-controls="collapseSeven">
+                            7. Can I change the car if I notice a mechanical failure after one hour of rental?
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapseSeven" class="collapse" aria-labelledby="headingSeven" data-parent="#faq">
+                    <div class="card-body">
+                        In the event of a mechanical breakdown, please contact our agency or the assistance service
+                        available 24/7 (service included in the rental contract). A repair authorization or a car
+                        replacement can be offered by the rental agency.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="map-card">
+        <iframe
+            src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3400.0312732007355!2d-4.0059330162593625!3d34.22188326993136!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd9e1712554bf99f%3A0xc75a4904f63ba2d0!2sLocation%20de%20voiture%20Taza%20AZARYOUH%20RIF%20CAR!5e0!3m2!1sfr!2sma!4v1720985036958!5m2!1sfr!2sma"
+            allowfullscreen="" loading="lazy"></iframe>
+    </div>
+
+    {% include 'footer.html' %}
+
+    <!-- Scroll to Top Button -->
+    <button class="scroll-to-top" onclick="scrollToTop()" id="scrollButton">
+        <i class="fa fa-car"></i>
+    </button>
+    
+
+    <!-- Social Buttons -->
+    <div class="social-buttons">
+        <a href="https://wa.me/+212661306515" class="social-button whatsapp-button" target="_blank">
+            <i class="fab fa-whatsapp"></i>
+        </a>
+        <a href="https://www.instagram.com/azaryouhcar/" class="social-button instagram-button" target="_blank">
+            <i class="fab fa-instagram"></i>
+        </a>
+        <a href="https://www.facebook.com/location.taza/?locale=ar_AR" class="social-button facebook-button" target="_blank">
+            <i class="fab fa-facebook-f"></i>
+        </a>
+    </div>
+
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script>
+        var swiper = new Swiper('.swiper-container', {
+            loop: true,
+            autoplay: {
+                delay: 5000,
+                disableOnInteraction: false,
+            },
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+            effect: 'slide', // Use slide effect
+            grabCursor: true,
+            slidesPerView: 1, // Show only one slide at a time
+        });
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.6.0/dist/umd/popper.min.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const faqItems = document.querySelectorAll('.card-header button');
+
+            faqItems.forEach(item => {
+                item.addEventListener('click', function () {
+                    const parentHeader = this.parentElement;
+                    const allHeaders = document.querySelectorAll('.card-header');
+
+                    allHeaders.forEach(header => {
+                        header.classList.remove('active');
+                    });
+
+                    if (!parentHeader.classList.contains('collapsed')) {
+                        parentHeader.classList.add('active');
+                    } else {
+                        parentHeader.classList.remove('active');
+                    }
+                });
+            });
+        });
+    </script>
+
+    <script>
+
+window.onscroll = function() {scrollFunction()};
+
+function scrollFunction() {
+    const scrollButton = document.getElementById("scrollButton");
+    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+        scrollButton.style.display = "block";
+    } else {
+        scrollButton.style.display = "none";
+    }
+}
+
+function scrollToTop() {
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth' // Smooth scrolling
+    });
+}
+
+    </script>
+
+</body>
+
+</html>
