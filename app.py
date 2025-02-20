@@ -282,5 +282,5 @@ def edit_car(car_id):
 def travel():
     return render_template('travel.html')
 
-if __name__ == '__main__':
-    app.run(debug=True)
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=5000)
