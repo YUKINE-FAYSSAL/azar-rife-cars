@@ -18,7 +18,7 @@ import os
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = os.path.join('static', 'uploads')
-app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
+app.config['SECRET_KEY'] = 'FFaa2020@@'
 app.config['SESSION_TYPE'] = 'filesystem'
 app.config['SESSION_FILE_DIR'] = './flask_session/'
 app.config['SESSION_COOKIE_SECURE'] = True
@@ -48,7 +48,7 @@ MONGO_URI = os.getenv('MONGO_URI')
 admin_user = {
     "username": "fou.ad@gmail.com",
     "password": generate_password_hash("Fouad@2025@Admin", method='pbkdf2:sha256')
-,    
+,
      "role": "admin"
 }
 
@@ -306,4 +306,4 @@ def travel():
     return render_template('travel.html')
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000)
+    app.run(debug=True ,host="0.0.0.0", port=5000)

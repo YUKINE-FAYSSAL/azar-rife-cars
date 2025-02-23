@@ -4,11 +4,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Meta Description -->
+    <meta name="description" content="Louez une voiture à Taza avec Taza Rent Car. Meilleures offres, service rapide et voitures bien entretenues. Réservez>
+
+    <!-- Meta Keywords -->
+    <meta name="keywords" content="location voiture Taza, louer voiture Taza, Taza Rent Car, voiture pas cher Taza, agence location Taza, car rental Taza, >
+
+    <!-- Meta Tags for English -->
+    <meta name="title" content="Taza Rent Car - Car Rental in Taza | Best Deals 🚗">
+    <meta name="description" content="Rent a car in Taza with Taza Rent Car. Best deals, fast service, and well-maintained vehicles. Book online easily!">
+
+    <!-- Meta Tags for Arabic -->
+    <meta name="title" content="تازة رنت كار - تأجير السيارات في تازة | أفضل العروض 🚗">
+    <meta name="description" content="استأجر سيارة في تازة مع تازة رنت كار. أفضل العروض، خدمة سريعة، وسيارات بحالة ممتازة. احجز عبر الإنترنت بسهولة!">
+    <!-- Open Graph Meta Tags for Social Media -->
+    <meta property="og:title" content="Taza Rent Car - Location de Voitures à Taza">
+    <meta property="og:description" content="Louez une voiture à Taza avec Taza Rent Car. Meilleures offres, service rapide et voitures bien entretenues. R>
+    <meta property="og:image" content="https://www.tazarentcar.com/logo.png">
+    <meta property="og:url" content="https://www.tazarentcar.com">
+    <meta property="og:type" content="website">
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Taza Rent Car - Location de Voitures à Taza">
+    <meta name="twitter:description" content="Louez une voiture à Taza avec Taza Rent Car. Meilleures offres, service rapide et voitures bien entretenues. >
+    <meta name="twitter:image" content="https://www.tazarentcar.com/logo.png">
+
+    <!-- Canonical Link -->
+    <link rel="canonical" href="https://www.tazarentcar.com">
     <title>Home - AZARYOUH RIF CARS</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
-
     <style>
 /* General body styling */
 body {
@@ -773,7 +800,13 @@ body {
                         <h3>{{ car.make }} {{ car.model }}</h3>
                         <p class="description">{{ car.description }}</p>
                         <p class="price">{{ car.price }} DH / day</p>
+                        {% if car.is_available %}
                         <a href="{{ url_for('car_details', car_id=car._id) }}" class="book-now">BOOK NOW</a>
+                    {% else %}
+                        <a class="book-now disabled" style="pointer-events: none; background-color: #888; cursor: not-allowed;">Indisponible</a>
+                    {% endif %}
+                    
+
                     </div>
                 </div>
             </div>
