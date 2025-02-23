@@ -12,16 +12,21 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, TextAreaField, SubmitField
 from wtforms.validators import DataRequired, Email, EqualTo
 import random
+from dotenv import load_dotenv
+import os
+
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = os.path.join('static', 'uploads')
-app.secret_key = os.urandom(24)
+app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
 app.config['SESSION_TYPE'] = 'filesystem'
 app.config['SESSION_FILE_DIR'] = './flask_session/'
-
+app.config['SESSION_COOKIE_SECURE'] = True
+app.config['SESSION_PERMANENT'] = False
+app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # Limit file size to 16MB
 Session(app)
 
-client = MongoClient('mongodb://localhost:27017/')
+client = MongoClient(os.getenv('MONGO_URI'))
 db = client['car_database']
 users_collection = db['users']
 cars_collection = db['cars']
@@ -31,6 +36,23 @@ login_manager.init_app(app)
 login_manager.login_view = 'login_signup'
 
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
+
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+# Access your environment variables securely
+SECRET_KEY = os.getenv('SECRET_KEY')
+MONGO_URI = os.getenv('MONGO_URI')
+
+
+admin_user = {
+    "username": "fou.ad@gmail.com",
+    "password": generate_password_hash("Fouad@2025@Admin", method='sha256'),
+    "role": "admin"
+}
+
+# Insérer l'utilisateur admin dans la collection users
+users_collection.insert_one(admin_user)
 
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
