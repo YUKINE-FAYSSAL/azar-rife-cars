@@ -46,9 +46,10 @@ MONGO_URI = os.getenv('MONGO_URI')
 
 
 admin_user = {
-    "username": "fou.ad@gmail.com",
-    "password": generate_password_hash("Fouad@2025@Admin", method='sha256'),
-    "role": "admin"
+    "username": "fou.ad@gmail.com",
+    "password": generate_password_hash("Fouad@2025@Admin", method='pbkdf2:sha256')
+,    
+     "role": "admin"
 }
 
 # Insérer l'utilisateur admin dans la collection users
